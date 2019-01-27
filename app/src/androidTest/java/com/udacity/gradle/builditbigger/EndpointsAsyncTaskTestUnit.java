@@ -18,9 +18,9 @@ public class EndpointsAsyncTaskTestUnit {
         public void iTest() throws Exception {
         int timeOut = 10;
         int expectedJokeSize = 6;
-            EndpointsAsyncTaskTest endpointsAsyncTaskTest =  new EndpointsAsyncTaskTest();
-            endpointsAsyncTaskTest.execute(InstrumentationRegistry.getContext());
-            String jokeResult = endpointsAsyncTaskTest.get(timeOut, TimeUnit.SECONDS);
+        EndpointsAsyncTask endpointsAsyncTask =  new EndpointsAsyncTask();
+        endpointsAsyncTask.execute(InstrumentationRegistry.getContext());
+            String jokeResult = endpointsAsyncTask.get(timeOut, TimeUnit.SECONDS);
             Assert.assertEquals(expectedJokeSize,jokeResult.length());
         }
 }

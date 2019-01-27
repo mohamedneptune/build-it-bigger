@@ -5,9 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import com.example.javajokes.Joker;
 
 /**
  * Created by Mohamed Ben Abdelkader.
@@ -42,11 +39,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void tellJoke(View view) {
-        Joker myJoker = new Joker();
-        Toast.makeText(this, myJoker.getJoke(), Toast.LENGTH_SHORT).show();
     }
 
     public void launchLibraryActivity(View view) {

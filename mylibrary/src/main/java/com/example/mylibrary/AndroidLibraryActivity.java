@@ -11,6 +11,7 @@ public class AndroidLibraryActivity extends AppCompatActivity {
 
     private  String mReceived_joke;
     private  TextView mLibraryWelcomeTextView;
+    public static final String MY_JOKE = "my_joke";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class AndroidLibraryActivity extends AppCompatActivity {
         Intent intent= getIntent();
         Bundle extras = intent.getExtras();
         if(extras != null) {
-            mReceived_joke = extras.getString("my_joke"); // retrieve the data using keyName
+            mReceived_joke = extras.getString(MY_JOKE); // retrieve the data using keyName
             mLibraryWelcomeTextView.setText(mReceived_joke);
         }
     }
