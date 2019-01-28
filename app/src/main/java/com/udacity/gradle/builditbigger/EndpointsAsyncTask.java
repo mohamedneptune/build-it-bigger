@@ -1,11 +1,8 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.example.mylibrary.AndroidLibraryActivity;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -21,9 +18,23 @@ import java.io.IOException;
 
 
 class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
+
     private static MyApi myApiService = null;
-    private Context context;
-    public static final String MY_JOKE = "my_joke";
+    private OnFindJokeListener mCallback;
+
+    private EndpointsAsyncTask(OnFindJokeListener callback) {
+        mCallback = callback;
+    }
+
+    static void getInstance(OnFindJokeListener listener) {
+        new EndpointsAsyncTask(listener).execute();
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        mCallback.onFindJokeStart();
+    }
 
     @Override
     protected String doInBackground(Context... params) {
@@ -45,8 +56,6 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
             myApiService = builder.build();
         }
 
-        context = params[0];
-
         try {
             return myApiService.getJoke().execute().getData();
         } catch (IOException e) {
@@ -57,8 +66,6 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Intent myIntent = new Intent(context, AndroidLibraryActivity.class);
-        myIntent.putExtra(MY_JOKE,result);
-        context.startActivity(myIntent);
+        mCallback.onFindJokeFinish(result);
     }
 }
